@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Resistance</string>
+    <string name="newGameButton">New Game</string>
+    <string name="helpButton">Help</string>
+    <string name="numPlayerText">Number of Player</string>
+    <string name="nextButton">Next</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_number_of_player">NumberOfPlayerActivity</string>
+    <string name="title_activity_player_setup">PlayerSetupActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_game_play">GamePlayActivity</string>
+    <string name="title_activity_vote_board">Vote_board</string>
+    <string name="title_activity_view_score">View_score</string>
+    <string name="title_activity_show_resukt">Show_resukt</string>
+    <string name="title_activity_show_result">Show_result</string>
+    <string name="title_activity_game_helper">GameHelperActivity</string>
+    <string name="title_activity_Home__Page">HomePageActivity</string>
+
+</resources>

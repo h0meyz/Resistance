@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mojo.resistance" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".Home_Page"
+            android:label="@string/title_activity_Home__Page" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NumberOfPlayerActivity"
+            android:label="@string/title_activity_number_of_player" >
+        </activity>
+        <activity
+            android:name=".PlayerSetupActivity"
+            android:label="@string/title_activity_player_setup" >
+        </activity>
+        <activity
+            android:name=".GamePlayActivity"
+            android:label="@string/title_activity_game_play" >
+        </activity>
+        <activity
+            android:name=".Vote_board"
+            android:label="@string/title_activity_vote_board" >
+        </activity>
+        <activity
+            android:name=".View_score"
+            android:label="@string/title_activity_view_score" >
+        </activity>
+        <activity
+            android:name=".Show_result"
+            android:label="@string/title_activity_show_result" >
+        </activity>
+        <activity
+            android:name=".GameHelperActivity"
+            android:label="@string/title_activity_game_helper" >
+        </activity>
+    </application>
+
+</manifest>

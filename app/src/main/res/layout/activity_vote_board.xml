@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.mojo.resistance.Vote_board">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/vb1"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+
+        >
+        <TextView
+            android:background="#F5F5DC"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="Please Vote Below"
+            android:textSize="30sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/vb2"
+        android:layout_below="@+id/vb1"
+        android:orientation="horizontal"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="2"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp">
+        <Button
+            android:id="@+id/vb1_y"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:text="Success"
+            android:onClick="set_success"/>
+        <Button
+            android:id="@+id/vb1_n"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:text="Fail"
+            android:onClick="set_fail"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/vb3"
+        android:layout_below="@+id/vb2"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <Button
+            android:id="@+id/vb3_c"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:text="Confirm"
+            android:onClick="confirm"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
