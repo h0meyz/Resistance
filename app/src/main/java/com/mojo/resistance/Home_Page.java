@@ -50,7 +50,7 @@ public class Home_Page extends ActionBarActivity {
         startActivity(intent);
     }
     public void gameHelp(View view){
-        Intent intent = new Intent(this, Vote_board.class);
+        Intent intent = new Intent(this, GameHelperActivity.class);
         startActivity(intent);
     }
 

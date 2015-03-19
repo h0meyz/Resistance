@@ -11,18 +11,23 @@ import android.widget.TextView;
 
 
 public class NumberOfPlayerActivity extends ActionBarActivity {
-    public static String selectedValue = "test";
-    int value = 0;
+    int value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_of_player);
+
         NumberPicker numPicker = (NumberPicker)findViewById(R.id.numberPicker);
         final TextView numberSelected = (TextView)findViewById(R.id.numberConfirmation);
+
+        value = 5; // by default
+
         numPicker.setWrapSelectorWheel(true);
         numPicker.setMinValue(5);
         numPicker.setMaxValue(10);
+        numPicker.setValue(5);
+        numberSelected.setText("Selected number is 5");
         numPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
             @Override
             public void onValueChange(NumberPicker picker, int oldValue, int newValue){
@@ -56,8 +61,7 @@ public class NumberOfPlayerActivity extends ActionBarActivity {
     }
     public void nextToSetup(View view){
         Intent intent = new Intent(this, PlayerSetupActivity.class);
-        System.out.println(selectedValue);
-        intent.putExtra(selectedValue, value);
+        intent.putExtra("selectedValue", value);
         startActivity(intent);
     }
 }

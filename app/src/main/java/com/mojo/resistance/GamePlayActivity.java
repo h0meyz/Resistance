@@ -8,7 +8,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,128 +27,197 @@ import java.util.List;
 public class GamePlayActivity extends ActionBarActivity {
     Mission[] the_Mission;
     Player[] Player_list;
-    // MailService mailService = new MailService();
+    String spies_text = "";
+
+    int lead_index;
+    int lead_fail_count;
+
     int[] spy_position = null; // spy_position[i] = index of the Player assigned as spy
     int number_of_spies = 0, number_of_Player = 0;
     int blue_winpoint, red_winpoint;
     int round;
+    boolean firstrun;
+    boolean return_from_vscore;
+    boolean return_from_vote_board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
+        return_from_vscore = false;
 
         Intent intent = getIntent();
-
         // get player input received from setupactivity
-        Parcelable[] temp = intent.getExtras().getParcelableArray("array");
+        Parcelable[] temp = intent.getExtras().getParcelableArray("from_iden");
         Player_list = new Player[temp.length];
         for (int i = 0; i < temp.length; i++) {
             Player_list[i] = (Player) temp[i];
-            //System.out.println("Name: " + Player_list[i].getName() + " and phone number: " + Player_list[i].getNum());
+            Player_list[i].identfy(); // restore variable Good based on Good_int
         }
+        // Player List should have full attributes by now
 
         initial_setup(); // set number of players, spies, initialize mission, and set up roles
+        return_from_vscore = false;
+        return_from_vote_board = false;
+        nextRound(); // 1st round in this case
     }
 
+
     @Override
-    // come back to this later!
-    public void onStart() {
-        super.onStart();
-        boolean notDone = true;
-
-        while (notDone) {
-            int selected_leader_index = 0;
-            boolean firstrun = true;
-
-            // 1. Round 1 starts - game end whenever any team reachs 3 points
-            while ( (blue_winpoint != 3) & (red_winpoint != 3) ) {
-                int lead_fail_count = 0;
-                boolean moveon = false, skip = false;
-                round += 1; // update round
-                Mission temp;
-
-                // load the corresponding Mission (round number - Mission number/index)
-                temp = the_Mission[round];
-
-                // repeat following process until a leader is confirmed or 5 leaders are rejected
-                while ((!moveon) && (lead_fail_count != 5)) {
-                    boolean confirmed_leader = false;
-
-                    // a. select leader = person to the left of previous leader
-                    if (round == 1 && firstrun) {
-                        selected_leader_index = getRandom();
-                        firstrun = false;
-                    }
-                    else {
-                        selected_leader_index = nextLeader(selected_leader_index);
-                    }
-
-                    // b. leader by mouth assign people to Mission
-
-
-                    // c. people publicly and simultaneously vote for the Mission team
-                    // !! Active listen choice from user - And record it !!
-                    if (confirmed_leader) {
-                        moveon = true;
-                    }
-                    else {
-                        lead_fail_count += 1;
-                        if (lead_fail_count == 5) { //	after 5 rejected Mission in a row, red team automatically wins 1 point and skip round
-                            skip = true;
-                        }
-                    }
-                } // end select leader
-
-                // vote process - after Mission group is endorsed by majority
-                if (!skip) { // if not skip, process as normal. otherwise skip and team red wins  1 point
-                    // d. People vote - vote choice - transition to next screen
-                    //
-                    // e. leader show results - app should hide whos voting what. just show number of yes and number of no
-                    // f. app updates win point for each team
+    public void onResume() {
+        super.onResume();
+        if (return_from_vscore){
+            return_from_vscore = false;
+        }
+        else {
+            if (return_from_vote_board) {
+                return_from_vote_board = false;
+                if (blue_winpoint == 3 || red_winpoint == 3) {
+                    toEndGame();
                 }
                 else {
-                    // Display that red team wins 1 point and move on to round 2
-                    red_winpoint += 1;
+                    nextRound();
                 }
-            } // end while - a team wins
-
-            // 4. Display whos winning - using if/else and winpoint of each team
-
-            // 5. display menu (return to main menu or create new game)
-
-            notDone = false;
-
-        } // end while
-    } //end onStart()
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_play, menu);
-        return true;
+            }
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void startRound(View view) {
+        // hide the button first
+        Button start_button = (Button) findViewById(R.id.start_bt);
+        start_button.setVisibility(View.INVISIBLE);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        lead_fail_count = 0;
+
+        // get lead index and retrieve lead name to set it in layout
+        String selected_lead;
+        setLead_index();
+        selected_lead = Player_list[lead_index].getName();
+        TextView lead_text = (TextView) findViewById(R.id.gp_mid_leader);
+        lead_text.setText(selected_lead);
+
+        // display the mid layout
+        RelativeLayout mid = (RelativeLayout) findViewById(R.id.gp_mid);
+        mid.setVisibility(View.VISIBLE);
+
+    }
+
+    void nextRound() {
+        // next round
+        round += 1;
+        TextView current_round = (TextView) findViewById(R.id.round_txt);
+        current_round.setText("ROUND " + (round + 1));
+        // show start button
+        Button start_button = (Button) findViewById(R.id.start_bt);
+        start_button.setVisibility(View.VISIBLE);
+    }
+    void toEndGame() {
+        // then show the game result
+        Button result = (Button) findViewById(R.id.gp_bot_result);
+        result.setVisibility(View.VISIBLE);
+    }
+
+    public void onNo(View view) {
+        lead_fail_count += 1;
+
+        if (lead_fail_count == 5) {
+            // skip round - red wins 1 point
+            red_winpoint += 1;
+            RelativeLayout mid = (RelativeLayout) findViewById(R.id.gp_mid);
+            mid.setVisibility(View.INVISIBLE);
+            the_Mission[round].set_winteam("Red");
+
+            if (red_winpoint == 3) {
+                // then show the game result
+                toEndGame();
+            }
+            else { // next round
+                nextRound();
+            }
+
+        }
+        else {
+            // else get another lead and display his/her name
+            String selected_lead;
+            setLead_index();
+            selected_lead = Player_list[lead_index].getName();
+            TextView lead_text = (TextView) findViewById(R.id.gp_mid_leader);
+            lead_text.setText(selected_lead);
+        }
+    }
+    public void onYes(View view) {
+        return_from_vote_board = true;
+        // hide mid layout first
+        RelativeLayout mid = (RelativeLayout) findViewById(R.id.gp_mid);
+        mid.setVisibility(View.INVISIBLE);
+
+        Mission current_mission = the_Mission[round];
+        current_mission.set_lead(Player_list[lead_index].getName()); // update leader for this mission
+
+        Intent goVote = new Intent(this,Vote_board.class);
+        goVote.putExtra("da_mission",current_mission);
+        startActivityForResult(goVote, 1); // 1 = requestCode
+    }
+
+    public void onResult(View view) {
+        String winteam;
+        String[] gr_array = new String[2];
+
+        if (blue_winpoint == 3){
+            winteam = "Blue";
+        }
+        else if (red_winpoint == 3){
+            winteam = "Red";
+        }
+        else {
+            winteam = " Error";
         }
 
-        return super.onOptionsItemSelected(item);
+        gr_array[0] = winteam;
+        gr_array[1] = spies_text;
+
+        Intent endgame = new Intent(this, Game_result.class);
+        endgame.putExtra("gr",gr_array);
+        startActivity(endgame);
     }
+
+    public void onViewScore(View view) {
+        return_from_vscore = true;
+        Intent go_viewscore = new Intent(this,View_score.class);
+        go_viewscore.putExtra("array_score",the_Mission);
+        startActivity(go_viewscore);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String winning_team;
+                winning_team = data.getExtras().getString("da_winning_team");
+                System.out.println("Returned is " + winning_team);
+                if (winning_team.equals("Red")) {
+                    red_winpoint += 1;
+                    the_Mission[round].set_winteam("Red");
+                } else if (winning_team.equals("Blue")) {
+                    blue_winpoint += 1;
+                    the_Mission[round].set_winteam("Blue");
+                } else {
+                    System.out.println("Error returning from vb");
+                }
+                if (resultCode == RESULT_CANCELED) {
+                    System.out.println("Why no result?");
+                }
+            } else {
+                System.out.println("The error what?");
+            }
+        } // end outtest if
+    }//onActivityResult
 
     void initial_setup() {
         blue_winpoint = 0;
         red_winpoint = 0;
-        round = 0;
+        round = -1;
+        firstrun = true;
 
         // set number of Players
         number_of_Player = Player_list.length;
@@ -159,13 +236,48 @@ public class GamePlayActivity extends ActionBarActivity {
             number_of_spies = 4;
         }
 
-        // by default all players are good. now set spies and record index of them in Player_list
-        randomize_roles();
+        // find spy position among player list and initialize spy_position array
+        identify_spies();
+        // now produce list of spies and put to spies_text
+        set_spies_text();
 
         // create and initialize array of Mission
         initialize_Mission();
 
         // Send results
+    }
+
+    void identify_spies() {
+        int i = 0;
+        int spy_index = 0;
+
+        while (spy_index < number_of_spies) {
+            boolean notFound = true;
+            while (notFound) {
+                if (!Player_list[i].isGood()) {
+                    spy_position[spy_index] = i;
+                    notFound = false;
+                }
+                i += 1;
+            }
+            spy_index += 1;
+        }
+    }
+
+    void set_spies_text() {
+        for (int i=0; i<number_of_spies; i++) {
+            if (i == (number_of_spies - 2)) { // second to last
+                spies_text += Player_list[spy_position[i]].getName();
+                spies_text += " and ";
+            }
+            else if (i == (number_of_spies - 1)) { // last
+                spies_text += Player_list[spy_position[i]].getName();
+            }
+            else {
+                spies_text += Player_list[spy_position[i]].getName();
+                spies_text += ", ";
+            }
+        }
     }
 
     void initialize_Mission() {
@@ -213,20 +325,6 @@ public class GamePlayActivity extends ActionBarActivity {
             the_Mission[4] = new Mission(5,5,1);
         }
     } // end initialize Mission
-    void randomize_roles() { // set position of spies (on array of Players)
-
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int i=0; i < number_of_Player; i++) {
-            list.add(new Integer(i));
-        }
-
-        Collections.shuffle(list);
-
-        for (int i=0; i < number_of_spies; i++) {
-            spy_position[i] = list.get(i);
-            Player_list[spy_position[i]].setSpy();
-        }
-    } // end random role
 
     int getRandom() { // generate random number between 0 to (number_of_player -1)
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -237,11 +335,39 @@ public class GamePlayActivity extends ActionBarActivity {
         Collections.shuffle(list);
         return list.get(0);
     }
-    int nextLeader(int index) { // give index of next leader
-        int return_me;
-        return_me = (index + 1) % number_of_Player;
-        return return_me;
-    }
-    
 
+    void setLead_index() {
+        if (firstrun) {
+            firstrun = false;
+            lead_index = getRandom();
+        }
+        else {
+            lead_index = ((lead_index + 1) % number_of_Player);
+        }
+    } // end get lead index
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_game_play, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

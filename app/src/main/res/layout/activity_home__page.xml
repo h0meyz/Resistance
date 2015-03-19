@@ -1,30 +1,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.mojo.resistance.Home_Page">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/customer_border1"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
         android:text="@string/newGameButton"
+        android:gravity="center"
+        android:textSize="20sp"
         android:id="@+id/newGamebutton"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="93dp"
-        android:onClick="newGame" />
+        android:layout_marginTop="150dp"
+        android:onClick="newGame">
+    </Button>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/customer_border1"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
+        android:textSize="20sp"
         android:text="@string/helpButton"
         android:id="@+id/helpButton"
         android:layout_below="@+id/newGamebutton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp"
-        android:onClick="gameHelp" />
+        android:layout_marginTop="150dp"
+        android:onClick="gameHelp">
+    </Button>
 
 </RelativeLayout>

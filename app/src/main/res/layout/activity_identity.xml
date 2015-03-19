@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:animateLayoutChanges="true"
+    tools:context="com.mojo.resistance.Identity">
+
+    <TextView
+        android:id="@+id/identity_player_text"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/darkcolorrod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/identity_image"
+        android:src="@drawable/ano"
+        android:visibility="invisible"
+        android:layout_below="@id/identity_player_text"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ImageView>
+
+    <Button
+        android:id="@+id/iden_btn"
+        android:layout_below="@id/identity_image"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Show Identity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="on_show_identity">
+    </Button>
+
+
+    <TextView
+        android:id="@+id/iden_result"
+        android:layout_below="@id/iden_btn"
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        android:textSize="19sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <Button
+        android:id="@+id/iden_next_btn"
+        android:visibility="invisible"
+        android:layout_below="@id/iden_result"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
+        android:text="Next"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onNext">
+    </Button>
+
+
+</RelativeLayout>

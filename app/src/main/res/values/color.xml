@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="cadetblue">#5F9EA0</color>
+    <color name="crimson">#DC143C</color>
+    <color name="darkcolorrod">#B8860B</color>
+    <color name="khaki">#F0E68C</color>
+    <color name="mediumcolor">#9370DB</color>
+
+    <color name="btn_nonpressed">#F2D07B</color>
+    <color name="btn_pressed">#EDAE1C</color>
+    <color name="brown">#755322</color>
+    <color name="a540">#A54B30</color>
+    <color name="milkcoffee">#DEB887</color>
+
+
+</resources>

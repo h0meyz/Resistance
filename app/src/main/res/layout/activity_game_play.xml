@@ -1,38 +1,187 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.mojo.resistance.GamePlayActivity">
+    tools:context="com.mojo.resistance.GamePlayActivity"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    >
 
-    <!--We'll come back later!-->
-    <!--<Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/startButton"
-        android:layout_marginTop="46dp"
-        android:onClick="startGameCall"
-        android:layout_below="@+id/roundText"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:layout_weight="7"
+        android:background="@drawable/easy_blue"
+        android:orientation="vertical"
+        android:id="@+id/gp_top"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Round"
-        android:id="@+id/roundText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/round_txt"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="30sp">
+        </TextView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/roundNumText"
-        android:layout_below="@+id/roundText"
-        android:layout_centerHorizontal="true" />-->
+        <Button
+            android:id="@+id/start_bt"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START"
+            android:textSize="22sp"
+            android:onClick="startRound">
+        </Button>
+    </LinearLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/gp_mid"
+        android:layout_weight="16"
+        android:visibility="invisible"
+        android:background="@drawable/khaki"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        >
+        <RelativeLayout
+            android:id="@+id/gp_mid_top"
+            android:padding="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/gp_mid_ltext"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textSize="22sp"
+                android:textColor="@color/a540"
+                android:text="@string/gp_sl_leader">
+            </TextView>
+            <TextView
+                android:id="@+id/gp_mid_leader"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:layout_toEndOf="@+id/gp_mid_ltext"
+                android:layout_toRightOf="@+id/gp_mid_ltext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textSize="22sp"
+                android:textColor="@color/mediumcolor">
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/gp_mid_text"
+            android:layout_below="@+id/gp_mid_top"
+            android:padding="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/gp_string_text"
+                android:textSize="25sp"
+                android:textColor="@color/brown"
+                android:padding="10dp">
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/gp_mid_bot"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gp_vote_text"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_toStartOf="@+id/gp_mid_yes"
+                android:layout_toLeftOf="@+id/gp_mid_yes"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center"
+                android:textColor="@color/a540"
+                android:textSize="19sp">
+            </TextView>
+            <Button
+                android:id="@+id/gp_mid_yes"
+                android:layout_toLeftOf="@+id/gp_mid_no"
+                android:layout_toStartOf="@+id/gp_mid_no"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/yes"
+                android:textColor="@color/crimson"
+                android:textSize="12sp"
+                android:onClick="onYes">
+            </Button>
+            <Button
+                android:id="@+id/gp_mid_no"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/crimson"
+                android:text="@string/no"
+                android:onClick="onNo">
+            </Button>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="3"
+        android:id="@+id/gp_bot"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        >
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="fill_parent"
+            android:text="View Score"
+            android:background="@drawable/purple"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="onViewScore">
+        </Button>
+        <Button
+            android:id="@+id/gp_bot_result"
+            android:visibility="invisible"
+            android:layout_width="150dp"
+            android:layout_height="fill_parent"
+            android:text="Game Result"
+            android:background="@drawable/purple"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="onResult">
+        </Button>
+    </RelativeLayout>
+
+</LinearLayout>

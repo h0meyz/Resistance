@@ -13,7 +13,7 @@ public class GameHelperActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_helper);
-        //setUpActionBarUp();
+
     }
 
 
@@ -39,12 +39,6 @@ public class GameHelperActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void setUpActionBarUp() {
-        // Make sure we're running on Honeycomb or higher to use ActionBar APIs
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }*/
+
 
 }

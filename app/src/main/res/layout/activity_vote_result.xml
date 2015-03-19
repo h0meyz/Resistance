@@ -4,39 +4,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.mojo.resistance.Show_result">
+    android:animateLayoutChanges="true"
+    tools:context="com.mojo.resistance.Vote_result">
 
-    <LinearLayout
-        android:id="@+id/sr"
-        android:orientation="vertical"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+    <TextView
+        android:id="@+id/vr_top"
+        android:text="Vote Result"
+        android:textSize="40sp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
-        <Button
-            android:id="@+id/sr_but"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="Show Result"
-            android:textSize="20sp"
-            android:onClick="showit"
-            />
-    </LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
     <TableLayout
         android:background="@drawable/customer_border2"
-        android:id="@+id/sr_tb"
-        android:layout_below="@+id/sr"
+        android:id="@+id/vr_mid"
+        android:layout_below="@+id/vr_top"
         android:layout_width="fill_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="20dp"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:layout_weight = "3"
-
-        >
+        android:layout_marginTop="50dp"
+        android:padding="5dp">
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -49,16 +37,15 @@
                 android:text="Fail Count"
                 android:layout_weight ="1"/>
             <TextView
-                android:id="@+id/sr_f"
+                android:id="@+id/vr_f"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
                 android:gravity="center"
-
-                android:layout_weight ="1"
-                />
-
+                android:layout_weight ="1">
+            </TextView>
         </TableRow>
+
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -69,18 +56,18 @@
                 android:textSize="20sp"
                 android:gravity="center"
                 android:text="Success Count"
-                android:layout_weight ="1"/>
+                android:layout_weight ="1">
+            </TextView>
             <TextView
-                android:id="@+id/sr_s"
+                android:id="@+id/vr_s"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
                 android:gravity="center"
-
-                android:layout_weight ="1"
-                />
-
+                android:layout_weight ="1">
+            </TextView>
         </TableRow>
+
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -90,38 +77,34 @@
                 android:layout_height="match_parent"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:text="Win Team is"
-                android:layout_weight ="1"/>
+                android:text="Win Team"
+                android:layout_weight ="1">
+            </TextView>
             <TextView
-                android:id="@+id/sr_t"
+                android:id="@+id/vr_t"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:layout_weight ="1"
-                />
+                android:layout_weight ="1">
+            </TextView>
 
         </TableRow>
-
-
     </TableLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/sr_bot"
-        android:layout_below="@id/sr_tb"
-        android:layout_width="160dp"
-        android:layout_height="100dp"
-        android:layout_margin="8dp"
-        android:layout_alignParentRight="true">
-        <Button
-            android:id="@+id/sr_nr"
-            android:layout_marginBottom="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Next Round"
-            android:textSize="19sp"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/vr_bot"
+        android:visibility="invisible"
+        android:layout_below="@id/vr_mid"
+        android:text="Next Round"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:onClick="goBack">
+    </Button>
 
 
 </RelativeLayout>

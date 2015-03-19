@@ -4,18 +4,32 @@
     <string name="app_name">Resistance</string>
     <string name="newGameButton">New Game</string>
     <string name="helpButton">Help</string>
-    <string name="numPlayerText">Number of Player</string>
+    <string name="numPlayerText">Please Enter Player Name Below</string>
+    <string name="numSelect">Please Select Number of Players</string>
     <string name="nextButton">Next</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_number_of_player">NumberOfPlayerActivity</string>
-    <string name="title_activity_player_setup">PlayerSetupActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_game_play">GamePlayActivity</string>
-    <string name="title_activity_vote_board">Vote_board</string>
-    <string name="title_activity_view_score">View_score</string>
-    <string name="title_activity_show_resukt">Show_resukt</string>
-    <string name="title_activity_show_result">Show_result</string>
-    <string name="title_activity_game_helper">GameHelperActivity</string>
-    <string name="title_activity_Home__Page">HomePageActivity</string>
+
+
+    <string name="gp_sl_leader">Selected leader is:</string>
+    <string name="gp_string_text">Please discuss and vote for the selected leader</string>
+    <string name="gp_vote_text">Majority vote for leader?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
+
+    <string name="title_activity_number_of_player">Number Of Player</string>
+    <string name="title_activity_player_setup">Player Setup</string>
+    <string name="title_activity_game_play">Game Play</string>
+    <string name="title_activity_vote_board">Vote Board</string>
+    <string name="title_activity_view_score">View Score</string>
+    <string name="title_activity_show_result">Show Result</string>
+    <string name="title_activity_game_helper">Game Helper</string>
+    <string name="title_activity_Home__Page">The Resistance</string>
+    <string name="title_activity_vote_result">Vote Result</string>
+    <string name="title_activity_game_result">Game Result</string>
+    <string name="title_activity_identity">Identity</string>
+
+
 
 </resources>
